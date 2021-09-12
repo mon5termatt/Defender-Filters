@@ -21,6 +21,9 @@ Step 4: When done, type Quit
 
 
 ### antiscam
+
+this command bans any user that posts nitro scams
+
 ```
 name: antiscam
 rank: 2
@@ -38,6 +41,9 @@ do:
 ```
   
 ### tokenlog
+
+this command bans any user that posts steam skin scams
+
 ```
 name: tokenlog
 rank: 2
@@ -56,6 +62,9 @@ do:
 ```
 
 ### dotru
+
+this command will delete any blacklisted domain and warn the user
+
 ```
 name: dotru
 rank: 2
@@ -75,6 +84,9 @@ do:
 ```
 
 ### everyone
+
+This Command will mute anyone who doesnt have the staff role defined by defender, use with caution.
+
 ```
 name: everyone
 rank: 2
@@ -94,6 +106,10 @@ do:
 ```
 
 ### shortener
+
+#### wip
+this one tries to prevent link shorteners. I havent fully made the list yet. some of these dont work.
+
 ```
 name: shortener
 rank: 2
@@ -107,9 +123,18 @@ do:
   - delete-last-message-sent-after: 60 seconds
 ```
 
-### 
-```
+### deleteall
 
+dont add this one, this one is a joke
+
+```
+name: deleteall
+rank: 2
+event: on-message
+if:
+  - message-matches-any: ["*"]
+do:
+  - delete-user-message:
 ```
 
 ### 
