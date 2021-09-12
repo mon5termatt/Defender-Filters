@@ -1,0 +1,14 @@
+name: everyone
+rank: 2
+event: on-message
+if:
+  - if-any:
+     - message-matches-any: ["*@everyone*"]
+  - if-not:
+     - is-staff: true
+do:
+  - delete-user-message:
+  - punish-user:
+  - notify-staff: "$user_mention Posted ```$message_clean``` As a Ping was attempted without the required roles he has been muted, check if this is a scam."
+  - send-message: [$channel_id, "$user_mention | Please do not attempt to ping everyone."]
+  - delete-last-message-sent-after: 60 seconds

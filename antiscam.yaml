@@ -1,0 +1,14 @@
+name: antiscam
+rank: 2
+event: on-message
+if:
+  - if-any:
+     - message-matches-any: ["*discord*wales*", "*nitrogift*", "*givenitro*", "*free-nitro*", "*discorcl*", "*discorb*", "*discrod*", "*roblox-com*"]
+     ## add more scam urls here
+  - if-not:
+     - is-staff: true
+do:
+  - ban-user-and-delete: 1
+  - notify-staff: "$user_mention Posted ```$message_clean``` $user appears to be posting scams. he has been banned."
+  - send-message: [$channel_id, "$user appears to be posting scams. he has been banned."]
+  - delete-last-message-sent-after: 60 seconds
