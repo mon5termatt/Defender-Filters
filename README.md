@@ -22,7 +22,8 @@ Step 4: When done, type Quit
 
 ### antiscam
 
-this command bans any user that posts nitro scams
+this command bans any user that posts nitro or steam scams
+##### big thanks to Naeng#0001
 
 ```
 name: antiscam
@@ -30,34 +31,19 @@ rank: 2
 event: on-message
 if:
   - if-any:
-     - message-matches-any: ["*discord*wales*", "*nitrogift*", "*givenitro*", "*free-nitro*", "*discorcl*", "*discorb*", "*discrod*", "*roblox-com*"]
+     - message-matches-any: ["*steamconm*", "*stearncor*", "*steamncon*", "*steamcommi*", "*steamcomun*", "*steamcommun*", "*steamcomminut*"]
+     - message-matches-any: ["*steamcommunytu*", "*steamcommunityu*", "*steancommunytiu*", "*stearncomminuty*"]
+     - message-matches-any: ["*d1scord*", "*dlscord*", "*discorb*", "*discorcl*", "*discords-*", "*d1scord-*", "*discordgift*", "*d1scord-gift*", "*dlscord-gift*"]
+     - message-matches-any: ["*discordgift*", "*d1scord-gifts*", "*dlscord-gifts*", "*d1scord-claim*", "*dlscord-claim*", "*d1scord-airdrop*", "*dlscord-airdrop*"]
+     - message-matches-any: ["*d1scord-nitro*", "*dlscord-nitro*", "*nitrogift*", "*discord*wales*", "*givenitro*", "*free-nitro*", "*roblox-com*"]
+     - message-matches-any: ["*?pantner*", "*give-nitro*", "*com/gift*", "*info/promo*", "*trade/offer*", "*giveaway/discord*", "*&token*", "*/airdrop*"]
   - if-not:
      - is-staff: true
 do:
   - ban-user-and-delete: 1
-  - notify-staff: "$user_mention Posted ```$message_clean``` $user appears to be posting scams. he has been banned."
-  - send-message: [$channel_id, "$user appears to be posting scams. he has been banned."]
-  - delete-last-message-sent-after: 60 seconds
-```
-  
-### tokenlog
-
-this command bans any user that posts steam skin scams
-
-```
-name: tokenlog
-rank: 2
-event: on-message
-if:
-  - if-any:
-     - message-matches-any: ["*steamcommunityu*", "*steancommunytiu*", "*stearncomminuty*", "*steamcommunytu*"]
-     - message-matches-any: ["*?pantner*", "*trade/offer*", "*&token*"]
-  - if-not:
-     - is-staff: true
-do:
-  - ban-user-and-delete: 1
-  - notify-staff: "$user_mention Posted ```$message_clean``` He appears to of been tokenlogged. he has been banned."
-  - send-message: [$channel_id, "$user appears to of been tokenlogged. he has been banned."]
+  - send-mod-log: "User banned for linking a malicious URL."
+  - notify-staff:  "$user_mention has sent a malicious link in $channel_mention - ```$message_clean``` He appears to of been tokenlogged. he has been banned."
+  - send-message: [$channel_id, "Malicious Link was detected and removed (User may of been token logged)"]
   - delete-last-message-sent-after: 60 seconds
 ```
 
