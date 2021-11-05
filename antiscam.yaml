@@ -11,6 +11,7 @@ if:
      - message-matches-any: ["*?pantner*", "*give-nitro*", "*com/gift*", "*info/promo*", "*trade/offer*", "*giveaway/discord*", "*&token*", "*/airdrop*"]
   - if-not:
      - is-staff: true
+     - message-matches-any: ["*steamcommunity.com*"]
 do:
   - ban-user-and-delete: 1
   - send-mod-log: "User banned for linking a malicious URL."
