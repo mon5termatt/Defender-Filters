@@ -8,7 +8,14 @@ if:
      - is-staff: true
 do:
   - delete-user-message:
-  - punish-user:
-  - notify-staff: "$user_mention Posted ```$message_clean``` As a Ping was attempted without the required roles he has been muted, check if this is a scam."
+  - add-user-heatpoint: 1h
+  - notify-staff:
+    title: "Warning!"
+    content: "$user_mention Posted `$message_clean.` The Message Was Deleted."
+    jump_to_ctx_message: true
+    qa_target: $user_id # Quick action target
+    qa_reason: "Spamming messages" # Quick action reason, optional
+    no_repeat_for: 30 seconds # Ensures that this notif. won't be sent again in the next 30 secs
+    no_repeat_key: $rule_name-1 # An unique key that identifies this notif., make sure to set this too 
   - send-message: [$channel_id, "$user_mention | Please do not attempt to ping everyone."]
   - delete-last-message-sent-after: 60 seconds

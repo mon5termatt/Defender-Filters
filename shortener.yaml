@@ -1,10 +1,19 @@
-name: shortener
+name: shortener 
 rank: 2
+priority: 1
 event: on-message
 if:
   - message-matches-any: ["*bit.ly*", "*rb.gy*", "*short.io*", "*linklyhq.com*", "*clickmeter.com*", "*pixelme.me*", "*bl.ink*", "*cutt.ly*", "*soo.gd*", "*tinycc.com*", "*clkim.com*", "*tinyurl.com*", "*t2mio.com*", "*tiny.ie*", "*shorturl.at*", "*bit.do*", "*yourls.org*", "*musicjet.com*", "*adf.ly*", "*is.gd*"]
 do:
   - delete-user-message:
-  - notify-staff: "$user_mention Posted ```$message_clean.``` The Message Was Deleted."
+  - add-user-heatpoint: 1h
+    - notify-staff:
+      title: "Warning!"
+      content: "$user_mention Posted `$message_clean.` The Message Was Deleted."
+      jump_to_ctx_message: true
+      qa_target: $user_id # Quick action target
+      qa_reason: "Spamming messages" # Quick action reason, optional
+      no_repeat_for: 30 seconds # Ensures that this notif. won't be sent again in the next 30 secs
+      no_repeat_key: $rule_name-1 # An unique key that identifies this notif., make sure to set this too 
   - send-message: [$channel_id, $user_mention | Please Refrain From Using Link Shorteners.]
   - delete-last-message-sent-after: 60 seconds

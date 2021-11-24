@@ -11,10 +11,16 @@ if:
      - message-matches-any: ["*?pantner*", "*give-nitro*", "*com/gift*", "*info/promo*", "*trade/offer*", "*giveaway/discord*", "*&token*", "*/airdrop*"]
   - if-not:
      - is-staff: true
-     - message-matches-any: ["*steamcommunity.com*"]
 do:
   - ban-user-and-delete: 1
-  - send-mod-log: "User banned for linking a malicious URL."
-  - notify-staff:  "$user_mention has sent a malicious link in $channel_mention - ```$message_clean``` He appears to of been tokenlogged. he has been banned."
+  - send-mod-log: "User banned for linking a malicious URL." 
+  - notify-staff:
+      title: "Malicious Link"
+      content: "$user_mention has sent a malicious link in $channel_mention - `$message_clean`"
+      jump_to_ctx_message: true
+      qa_target: $user_id # Quick action target
+      qa_reason: "Phishing Link/Token Grabber" # Quick action reason, optional
+      no_repeat_for: 30 seconds # Ensures that this notif. won't be sent again in the next 30 secs
+      no_repeat_key: $rule_name-1 # An unique key that identifies this notif., make sure to set this too
   - send-message: [$channel_id, "Malicious Link was detected and removed (User may of been token logged)"]
   - delete-last-message-sent-after: 60 seconds
