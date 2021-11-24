@@ -39,11 +39,17 @@ if:
      - message-matches-any: ["*?pantner*", "*give-nitro*", "*com/gift*", "*info/promo*", "*trade/offer*", "*giveaway/discord*", "*&token*", "*/airdrop*"]
   - if-not:
      - is-staff: true
-     - message-matches-any: ["*steamcommunity.com*"]
 do:
   - ban-user-and-delete: 1
-  - send-mod-log: "User banned for linking a malicious URL."
-  - notify-staff:  "$user_mention has sent a malicious link in $channel_mention - ```$message_clean``` He appears to of been tokenlogged. he has been banned."
+  - send-mod-log: "User banned for linking a malicious URL." 
+  - notify-staff:
+      title: "Malicious Link"
+      content: "$user_mention has sent a malicious link in $channel_mention - `$message_clean`"
+      jump_to_ctx_message: true
+      qa_target: $user_id # Quick action target
+      qa_reason: "Phishing Link/Token Grabber" # Quick action reason, optional
+      no_repeat_for: 30 seconds # Ensures that this notif. won't be sent again in the next 30 secs
+      no_repeat_key: $rule_name-1 # An unique key that identifies this notif., make sure to set this too
   - send-message: [$channel_id, "Malicious Link was detected and removed (User may of been token logged)"]
   - delete-last-message-sent-after: 60 seconds
 ```
@@ -85,11 +91,17 @@ if:
      - is-staff: true
 do:
   - delete-user-message:
-  - punish-user:
-  - notify-staff: "$user_mention Posted ```$message_clean``` As a Ping was attempted without the required roles he has been muted, check if this is a scam."
+  - add-user-heatpoint: 1h
+  - notify-staff:
+    title: "Warning!"
+    content: "$user_mention Posted `$message_clean.` The Message Was Deleted."
+    jump_to_ctx_message: true
+    qa_target: $user_id # Quick action target
+    qa_reason: "Spamming messages" # Quick action reason, optional
+    no_repeat_for: 30 seconds # Ensures that this notif. won't be sent again in the next 30 secs
+    no_repeat_key: $rule_name-1 # An unique key that identifies this notif., make sure to set this too 
   - send-message: [$channel_id, "$user_mention | Please do not attempt to ping everyone."]
   - delete-last-message-sent-after: 60 seconds
-
 ```
 
 ### shortener
@@ -98,14 +110,23 @@ do:
 this one tries to prevent link shorteners. I havent fully made the list yet. some of these dont work.
 
 ```
-name: shortener
+name: shortener 
 rank: 2
+priority: 1
 event: on-message
 if:
   - message-matches-any: ["*bit.ly*", "*rb.gy*", "*short.io*", "*linklyhq.com*", "*clickmeter.com*", "*pixelme.me*", "*bl.ink*", "*cutt.ly*", "*soo.gd*", "*tinycc.com*", "*clkim.com*", "*tinyurl.com*", "*t2mio.com*", "*tiny.ie*", "*shorturl.at*", "*bit.do*", "*yourls.org*", "*musicjet.com*", "*adf.ly*", "*is.gd*"]
 do:
   - delete-user-message:
-  - notify-staff: "$user_mention Posted ```$message_clean.``` The Message Was Deleted."
+  - add-user-heatpoint: 1h
+    - notify-staff:
+      title: "Warning!"
+      content: "$user_mention Posted `$message_clean.` The Message Was Deleted."
+      jump_to_ctx_message: true
+      qa_target: $user_id # Quick action target
+      qa_reason: "Spamming messages" # Quick action reason, optional
+      no_repeat_for: 30 seconds # Ensures that this notif. won't be sent again in the next 30 secs
+      no_repeat_key: $rule_name-1 # An unique key that identifies this notif., make sure to set this too 
   - send-message: [$channel_id, $user_mention | Please Refrain From Using Link Shorteners.]
   - delete-last-message-sent-after: 60 seconds
 ```
