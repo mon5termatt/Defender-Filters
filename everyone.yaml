@@ -6,16 +6,23 @@ if:
      - message-matches-any: ["*@everyone*"]
   - if-not:
      - is-staff: true
+     - is-helper: true
 do:
   - delete-user-message:
-  - add-user-heatpoint: 1h
+  - send-message: [$user_id, "You have been muted in $guild for attempting to ping everyone. Please wait for a moderator to review your message."]
+  - send-message: [$user_id, "If it is found to be a scam then you will be banned. (You can Submit a ban appeal here: https://xxxxxxxxxxxxxxxxxxxxxx.com)"]
+  - punish-user:
+  - send-mod-log: "User Muted for attempting to ping everyone." 
   - notify-staff:
-    title: "Warning!"
-    content: "$user_mention Posted `$message_clean.` The Message Was Deleted."
-    jump_to_ctx_message: true
-    qa_target: $user_id # Quick action target
-    qa_reason: "Spamming messages" # Quick action reason, optional
-    no_repeat_for: 30 seconds # Ensures that this notif. won't be sent again in the next 30 secs
-    no_repeat_key: $rule_name-1 # An unique key that identifies this notif., make sure to set this too 
+      title: "Attempted Ping"
+      content: "$user_mention tried to ping everyone in $channel_mention - `$message_clean`"
+      thumbnail: $user_avatar_url
+      footer_text: "They Done Fucked Up"
+      ping: true
+      jump_to_ctx_message: true
+      qa_target: $user_id # Quick action target
+      qa_reason: "Attempted Everyone Ping" # Quick action reason, optional
+      no_repeat_for: 30 seconds # Ensures that this notif. won't be sent again in the next 30 secs
+      no_repeat_key: $rule_name-1 # An unique key that identifies this notif., make sure to set this too
   - send-message: [$channel_id, "$user_mention | Please do not attempt to ping everyone."]
   - delete-last-message-sent-after: 60 seconds

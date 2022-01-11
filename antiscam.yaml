@@ -1,18 +1,20 @@
 name: antiscam
 rank: 2
+priority: 1
 event: on-message
 if:
   - if-any:
-     - message-matches-any: ["*steamconm*", "*stearncor*", "*steamncon*", "*steamcommi*", "*steamcomun*", "*steamcommun*", "*steamcomminut*"]
+     - message-matches-any: ["*steamconm*", "*stearncor*", "*steamncon*", "*steamcommi*", "*steamcomun*", "*steamcomminut*"]
      - message-matches-any: ["*steamcommunytu*", "*steamcommunityu*", "*steancommunytiu*", "*stearncomminuty*"]
-     - message-matches-any: ["*d1scord*", "*dlscord*", "*discorb*", "*discorcl*", "*discords-*", "*d1scord-*", "*discordgift*", "*d1scord-gift*", "*dlscord-gift*"]
-     - message-matches-any: ["*discordgift*", "*d1scord-gifts*", "*dlscord-gifts*", "*d1scord-claim*", "*dlscord-claim*", "*d1scord-airdrop*", "*dlscord-airdrop*"]
-     - message-matches-any: ["*d1scord-nitro*", "*dlscord-nitro*", "*nitrogift*", "*discord*wales*", "*givenitro*", "*free-nitro*", "*roblox-com*"]
+     - message-matches-any: ["*d1scord*", "*dlscord*", "*discorb*", "*discojd*", "*discopd*", "*discorcl*", "*discoord*", "*discords*"]
+     - message-matches-any: ["*discsrd*", "*steamdiscord*", "*discrode*", "*dlsccord*", "*discordg*"]
+     - message-matches-any: ["*gg.gg*", "*discord-nitro*"]
+     - message-matches-any: ["*nitrogift*", "*discord*wales*", "*givenitro*", "*free-nitro*", "*roblox-com*"]
      - message-matches-any: ["*?pantner*", "*give-nitro*", "*com/gift*", "*info/promo*", "*trade/offer*", "*giveaway/discord*", "*&token*", "*/airdrop*"]
   - if-not:
      - is-staff: true
-     - message-matches-any: ["*steamcommunity.com*"]
 do:
+  - send-message: [$user_id, "You have been banned from $guild for attempting to scam users. (You can Submit a ban appeal here: https://xxxxxxxxxxxxxxxxxxxxxx.com)"]
   - ban-user-and-delete: 1
   - send-mod-log: "User banned for linking a malicious URL." 
   - notify-staff:
