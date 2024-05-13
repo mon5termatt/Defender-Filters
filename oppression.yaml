@@ -1,0 +1,12 @@
+name: oppression
+rank: 2
+event: on-message
+if:
+  - if-all:
+     - message-matches-any: ["*oday I will explain some new forms of oppressio*"]
+  - if-not:
+     - is-staff: true
+     - is-helper: true
+do:
+  - send-message: [$channel_id, "$user_mention | LMAO GO TO <#829487595485659157>. THATS WHERE YOU BELONG"]
+  

@@ -1,28 +1,27 @@
-name: everyone
+name: Weird_Adobe_Scam
 rank: 2
-priority: 7
+priority: 6
 event: on-message
 if:
-  - if-any:
-     - message-matches-any: ["*@everyone*"]
+  - if-all:
+     - message-matches-any: ["*telegra.ph*"]
+     - message-matches-any: ["*Adobe*"]
   - if-not:
      - is-staff: true
      - is-helper: true
 do:
   - delete-user-message:
-  - send-message: [$user_id, "You have been muted in $guild for attempting to ping everyone. Please wait for a moderator to review your message."]
-  - send-message: [$user_id, "If it is found to be a scam then you will be banned. (You can Submit a ban appeal here: https://url.medicatusb.com/unban)"]
-  - punish-user:
-  - send-mod-log: "User Muted for attempting to ping everyone." 
+  - punish-user: 
+  - send-mod-log: "$user_mention sent that weird fucking adobe spam message" 
   - notify-staff:
       title: "Attempted Ping"
-      content: "$user_mention tried to ping everyone in $channel_mention - `$message_clean`"
+      content: "$user_mention sent that weird fucking adobe spam message in $channel_mention - `$message_clean`"
       thumbnail: $user_avatar_url
       footer_text: "They Done Fucked Up"
       ping: true
       jump_to_ctx_message: true
       qa_target: $user_id # Quick action target
-      qa_reason: "Attempted Everyone Ping" # Quick action reason, optional
+      qa_reason: "Attempted Spam???" # Quick action reason, optional
       no_repeat_for: 30 seconds # Ensures that this notif. won't be sent again in the next 30 secs
       no_repeat_key: $rule_name-1 # An unique key that identifies this notif., make sure to set this too
   - send-message: [$channel_id, "$user_mention | Please do not attempt to ping everyone."]

@@ -1,0 +1,29 @@
+name: disguisedlink
+rank: 2
+priority: 4
+event: on-message
+if:
+  - if-all:
+     - message-matches-any: ["*[*](*)*", "*[*](*)", "[*](*)*", "[*](*)"]
+     - message-contains-url: true
+     # [TEXT](https://xyz.com/ )
+  - if-not:
+     - is-staff: true
+     - is-helper: true
+
+do:
+  - delete-user-message:
+  - send-message: [$channel_id, "$user_mention | It looks like you attempted to send a disguised link. This action has been noted."]
+  - send-mod-log: "Potential scam link sent." 
+  - notify-staff:
+      title: "Attempted disguised link."
+      content: "$user_mention in $channel_mention - `$message_clean`"
+      thumbnail: $user_avatar_url
+      footer_text: "They Done Fucked Up"
+      ping: false
+      jump_to_ctx_message: true
+      qa_target: $user_id # Quick action target
+      qa_reason: "Attempted disguised link" # Quick action reason, optional
+      no_repeat_for: 30 seconds # Ensures that this notif. won't be sent again in the next 30 secs
+      no_repeat_key: $rule_name-1 # An unique key that identifies this notif., make sure to set this too
+

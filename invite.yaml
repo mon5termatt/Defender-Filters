@@ -1,22 +1,20 @@
-name: everyone
+name: invite
 rank: 2
-priority: 7
+priority: 5
 event: on-message
 if:
   - if-any:
-     - message-matches-any: ["*@everyone*"]
+     - message-contains-invite: true
   - if-not:
      - is-staff: true
      - is-helper: true
 do:
   - delete-user-message:
-  - send-message: [$user_id, "You have been muted in $guild for attempting to ping everyone. Please wait for a moderator to review your message."]
-  - send-message: [$user_id, "If it is found to be a scam then you will be banned. (You can Submit a ban appeal here: https://url.medicatusb.com/unban)"]
   - punish-user:
-  - send-mod-log: "User Muted for attempting to ping everyone." 
+  - send-mod-log: "User Muted for attempting to send an invite." 
   - notify-staff:
-      title: "Attempted Ping"
-      content: "$user_mention tried to ping everyone in $channel_mention - `$message_clean`"
+      title: "Attempted invite"
+      content: "$user_mention tried to send an invite in $channel_mention - `$message_clean`"
       thumbnail: $user_avatar_url
       footer_text: "They Done Fucked Up"
       ping: true
@@ -25,5 +23,5 @@ do:
       qa_reason: "Attempted Everyone Ping" # Quick action reason, optional
       no_repeat_for: 30 seconds # Ensures that this notif. won't be sent again in the next 30 secs
       no_repeat_key: $rule_name-1 # An unique key that identifies this notif., make sure to set this too
-  - send-message: [$channel_id, "$user_mention | Please do not attempt to ping everyone."]
+  - send-message: [$channel_id, "$user_mention | Please do not attempt to send discord invites."]
   - delete-last-message-sent-after: 60 seconds

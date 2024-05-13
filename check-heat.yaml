@@ -1,0 +1,7 @@
+rank: 2
+name: check-heat
+event: on-message
+if:
+  - user-heat-is: 5
+do:
+  - kick-user:

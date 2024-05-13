@@ -1,0 +1,27 @@
+name: sex_invite_scam
+rank: 2
+priority: 1
+event: on-message
+if:
+  - if-all:
+     - message-matches-any: ["*onlyfans*", "*leaks*", "*@everyone*", "*teen*", "*underage*", "*porn*", "*peach*"]
+     - message-matches-any: ["*discord.gg*"]
+  - if-not:
+     - is-staff: true
+     - is-helper: true
+do:
+  - delete-user-message:
+  - send-message: [$user_id, "You have been banned from $guild. if you feel like this is a mistake you can Submit a ban appeal here: https://url.medicatusb.com/unban"]
+  - ban-user-and-delete: 7
+  - send-mod-log: "User banned for another discord invite scam." 
+  - notify-staff:
+      title: "Attempted Ping"
+      content: "$user_mention tried to scam in $channel_mention - `$message_clean`"
+      thumbnail: $user_avatar_url
+      footer_text: "$rule_name-1"
+      ping: true
+      jump_to_ctx_message: true
+      qa_target: $user_id # Quick action target
+      qa_reason: "Autoban from commin scams" # Quick action reason, optional
+      no_repeat_for: 30 seconds # Ensures that this notif. won't be sent again in the next 30 secs
+      no_repeat_key: $rule_name-1 # An unique key that identifies this notif., make sure to set this too
