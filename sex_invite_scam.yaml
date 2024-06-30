@@ -4,18 +4,31 @@ priority: 1
 event: on-message
 if:
   - if-all:
-     - message-matches-any: ["*onlyfans*", "*leaks*", "*@everyone*", "*teen*", "*underage*", "*porn*", "*peach*"]
-     - message-matches-any: ["*discord.gg*"]
+     - message-matches-any: ["*E-Girls*", "*Hentai*", "*🔞*", "*🍑*", "*hot*", "*18+*", "*pussy*", "*Girls*", "*nudes*", "*onlyfans*", "*leaks*", "*@everyone*", "*teen*", "*underage*", "*porn*", "*peach*"]
+     - message-contains-invite: true
+     
+     # *E-Girls*", "*Hentai*", "*🔞*", "*🍑*", "*hot*", "*18+*", "*pussy*", "*Girls*", "*nudes*", "*onlyfans*", "*leaks*", "*@everyone*", "*teen*", "*underage*", "*porn*", "*peach* 
+     # Free 18+ Teen Porn + Latina Nudes + Onlyfans Leaks + Hot Girls + Hot pussys +E-Girls Porn + Hentai Porn
+
   - if-not:
      - is-staff: true
      - is-helper: true
 do:
   - delete-user-message:
   - send-message: [$user_id, "You have been banned from $guild. if you feel like this is a mistake you can Submit a ban appeal here: https://url.medicatusb.com/unban"]
+  - send-message:
+      id: 1240906567855902720
+      title: User Banned
+      description: "`$user_id` - $user has been banned from $guild for a discord invite scam." # description of the embed
+      footer_text: "Dont let the door hit ya."
+      footer_icon_url: $user_avatar_url
+      add_timestamp: true # Add the current date / time to the embed
+      thumbnail: $user_avatar_url
+      color: 0x59FF00 # Use a HTML color picker for this, with due adjustments: #59FF00 -> 0x59FF00
   - ban-user-and-delete: 7
   - send-mod-log: "User banned for another discord invite scam." 
   - notify-staff:
-      title: "Attempted Ping"
+      title: "Attempted Discord Scam"
       content: "$user_mention tried to scam in $channel_mention - `$message_clean`"
       thumbnail: $user_avatar_url
       footer_text: "$rule_name-1"

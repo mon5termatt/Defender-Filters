@@ -11,10 +11,20 @@ if:
      - is-helper: true
 do:
   - delete-user-message:
+  - send-message:
+      id: 1240906567855902720
+      content: <@$user_id>
+      title: User Muted (And Potentially banned)
+      description: "`$user_id` - $user has been muted in $guild for a trying to post spam." # description of the embed
+      footer_text: "You tryna pull something?"
+      footer_icon_url: $user_avatar_url
+      add_timestamp: true # Add the current date / time to the embed
+      thumbnail: $user_avatar_url
+      color: 0x59FF00 # Use a HTML color picker for this, with due adjustments: #59FF00 -> 0x59FF00
   - punish-user: 
   - send-mod-log: "$user_mention sent that weird fucking adobe spam message" 
   - notify-staff:
-      title: "Attempted Ping"
+      title: "Attempted Adobe Spam"
       content: "$user_mention sent that weird fucking adobe spam message in $channel_mention - `$message_clean`"
       thumbnail: $user_avatar_url
       footer_text: "They Done Fucked Up"

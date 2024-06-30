@@ -1,0 +1,9 @@
+name: test
+rank: 1
+priority: 1
+event: on-message
+if:
+  - if-any:
+     - message-matches-any: ["*TESTPHRASE*"]
+do:
+  - delete-user-message:
