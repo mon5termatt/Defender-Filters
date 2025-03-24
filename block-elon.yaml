@@ -1,0 +1,15 @@
+name: block-elon
+rank: 2
+priority: 9
+event: on-message
+if:
+  - if-any:
+     - message-matches-any: ["*.x.com*","*/x.com*","*twitter.com*","*t.co/*","*starlink.com*", "*tesla.com*", "*spacex.com*","*fxtwitter.com*","*fixupx.com*","*girlcockx.com*","*vxtwitter.com*","*fixvx.com*"]
+
+  - if-not:
+     - is-staff: true
+     - is-helper: true
+do:
+  - delete-user-message:
+  - send-message: [$channel_id, "$user_mention | We don't allow that man."]
+  - delete-last-message-sent-after: 60 seconds
