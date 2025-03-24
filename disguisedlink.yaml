@@ -6,15 +6,14 @@ if:
   - if-all:
      - message-matches-any: ["*[*](*)*", "*[*](*)", "[*](*)*", "[*](*)", "*%64%69%73%63%6f%72%64%2e%67%67*"]
      - message-contains-url: true
-     # [TEXT](https://xyz.com/ )
+     # EXAMPLE: [TEXT](https://xyz.com/ )
   - if-not:
      - is-staff: true
      - is-helper: true
 
 do:
   - delete-user-message:
-  - send-message: [$user_id, "You have been muted in $guild for attempting to send a disguised link. Please wait for a moderator to review your message."]
-  - send-message: [$user_id, "If it is found to be a scam then you will be banned."]
+  - send-message: [$user_id, "You have been muted in $guild for attempting to send a disguised link. Please wait for a moderator to review your message. If it is found to be a scam then you will be banned."]
   - send-mod-log: "Potential scam link sent." 
   - notify-staff:
       title: "Attempted disguised link."

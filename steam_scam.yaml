@@ -4,24 +4,14 @@ priority: 2
 event: on-message
 if:
   - if-all:
-     - message-matches-any: ["*steamcommunity.com/gift/*"]
-     - message-matches-any: ["*(https://*"]
-     # 50$ for steam [steamcommunity.com/gift/75848363136](https://u.to/BT_pIA )
+     - message-matches-any: ["*steamcommunity.com/gift/*", "*steamcommunity.com/gift-card/*", "*steamticketgift*"]
+     - message-matches-any: ["*https://*"]
   - if-not:
      - is-staff: true
      - is-helper: true
 do:
   - delete-user-message:
-  - send-message: [$user_id, "You have been banned from $guild. if you feel like this is a mistake you can Submit a ban appeal here: https://url.medicatusb.com/unban"]
-  - send-message:
-      id: 1240906567855902720
-      title: User Banned
-      description: "`$user_id` - $user has been banned from $guild for a steam scam." # description of the embed
-      footer_text: "Dont let the door hit ya."
-      footer_icon_url: $user_avatar_url
-      add_timestamp: true # Add the current date / time to the embed
-      thumbnail: $user_avatar_url
-      color: 0x59FF00 # Use a HTML color picker for this, with due adjustments: #59FF00 -> 0x59FF00
+  - send-message: [$user_id, "You have been banned from $guild."]
   - ban-user-and-delete: 7
   - send-mod-log: "User banned for fake steam link scam." 
   - notify-staff:

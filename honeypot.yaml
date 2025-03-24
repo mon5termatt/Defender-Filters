@@ -1,0 +1,22 @@
+name: honeypot
+rank: 2
+event: on-message
+if:
+  - if-all:
+     - channel-matches-any: ["ENTER YOUR HONEYPOT CHANNEL ID HERE"]
+     - message-matches-any: ["*"]
+  - if-not:
+     - is-staff: true
+     - is-helper: true
+do:
+  - delete-user-message:
+  - send-message: [$user_id, "You have been kicked from $guild for dipping your hand into the honeypot!"]
+  - softban-user:  
+  - notify-staff:
+      title: "Honeypot"
+      content: "$user_mention - $channel_mention - `$message_clean`"
+      thumbnail: $user_avatar_url
+      footer_text: "THEY DIPPED THEIR HAND INTO THE HONEY"
+      ping: false
+      no_repeat_for: 30 seconds # Ensures that this notif. won't be sent again in the next 30 secs
+      no_repeat_key: $rule_name-1 # An unique key that identifies this notif., make sure to set this too
